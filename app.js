@@ -52,6 +52,7 @@ function authenticate(code, cb) {
     res.setEncoding('utf8');
     res.on('data', function (chunk) { body += chunk; });
     res.on('end', function() {
+      console.log('api response:', body);
       cb(null, qs.parse(body).access_token);
     });
   });
