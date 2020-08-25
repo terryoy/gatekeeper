@@ -7,7 +7,7 @@
     "oauth"
   ],
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "node tests/server.test.js"
   },
   "repository": {
@@ -23,7 +23,7 @@
   "engines": {
     "node": "^12.18.3"
   },
-  "main": "index",
+  "main": "server",
   "version": "0.1.0",
   "devDependencies": {
     "nock": "^9.1.4",
