@@ -1,5 +1,5 @@
 
-var { config, app } = require('./server');
+var { config, app } = require('./app');
 
 var port = process.env.PORT || config.port || 9999;
 
