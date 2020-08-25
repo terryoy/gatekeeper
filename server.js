@@ -85,6 +85,7 @@ function log(label, value, sanitized) {
 
 // Convenience for allowing CORS on routes - GET only
 app.all('*', function (req, res, next) {
+  console.log('receive request:', req.path);
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
