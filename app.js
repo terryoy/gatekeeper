@@ -47,12 +47,14 @@ function authenticate(code, cb) {
     headers: { 'content-length': data.length }
   };
 
+  log(reqOptions);
+
   var body = "";
   var req = https.request(reqOptions, function(res) {
     res.setEncoding('utf8');
     res.on('data', function (chunk) { body += chunk; });
     res.on('end', function() {
-      console.log('api response:', body);
+      log('api response:', body);
       cb(null, qs.parse(body).access_token);
     });
   });
