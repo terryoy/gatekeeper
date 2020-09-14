@@ -47,14 +47,16 @@ function authenticate(code, cb) {
     headers: { 'content-length': data.length }
   };
 
-  log(reqOptions);
+  console.log(reqOptions, "data", data);
 
   var body = "";
   var req = https.request(reqOptions, function(res) {
     res.setEncoding('utf8');
     res.on('data', function (chunk) { body += chunk; });
     res.on('end', function() {
-      log('api response:', body);
+      let output = fs.createWriteStream('response.html');
+      output.write(body);
+      output.close();
       cb(null, qs.parse(body).access_token);
     });
   });
@@ -88,7 +90,7 @@ function log(label, value, sanitized) {
 
 // Convenience for allowing CORS on routes - GET only
 app.all('*', function (req, res, next) {
-  console.log('receive request:', req.path);
+  console.log('receive request:', req.path, req.params);
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
