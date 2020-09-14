@@ -13,11 +13,20 @@ Gatekeeper works well with [Github.js](http://github.com/michael/github), which 
 
 ## API
 
+Use AJAX request to acquire an access token from github, by sending the OAuth code to the following URL:
+
 ```
 GET http://localhost:9999/authenticate/TEMPORARY_CODE
 ```
 
-## OAuth Steps
+Response:
+
+```
+{ }
+```
+
+
+## Reference: Github OAuth Steps
 
 Also see the [documentation on Github](http://developer.github.com/v3/oauth/).
 
@@ -57,7 +66,14 @@ Also see the [documentation on Github](http://developer.github.com/v3/oauth/).
     cd gatekeeper && npm install
     ```
 
-3. Adjust config.json
+3. Create your OAuth app
+
+Go to [Developer Settings](https://github.com/settings/developers), create an OAuth app.
+
+(The callback url should use your frontend url. Your frontend application get the code from URL, and send to gatekeeper; the gatekeeper return an access token after verify with github.)
+
+
+4. Adjust config.json
 
    ```json
    {
@@ -73,7 +89,7 @@ Also see the [documentation on Github](http://developer.github.com/v3/oauth/).
 
    You can also set environment variables to override the settings if you don't want Git to track your adjusted config.json file. Just use UPPER_CASE keys.
 
-4. Serve it
+5. Serve it
 
    ```
    $ node index.js
