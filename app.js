@@ -47,8 +47,6 @@ function authenticate(code, cb) {
     headers: { 'content-length': data.length }
   };
 
-  console.log(reqOptions, "data", data);
-
   var body = "";
   var req = https.request(reqOptions, function(res) {
     res.setEncoding('utf8');
@@ -87,20 +85,18 @@ function log(label, value, sanitized) {
   }
 }
 
-
 // Convenience for allowing CORS on routes - GET only
 app.all('*', function (req, res, next) {
-  console.log('receive request:', req.path, req.params);
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
 
-
 app.get('/authenticate/:code', function(req, res) {
-  log('authenticating code:', req.params.code, true);
-  authenticate(req.params.code, function(err, token) {
+  const code = req.param('code')
+  log('authenticating code:', code, true);
+  authenticate(code, function(err, token) {
     var result
     if ( err || !token ) {
       result = {"error": err || "bad_code"};
@@ -112,6 +108,7 @@ app.get('/authenticate/:code', function(req, res) {
     res.json(result);
   });
 });
+
 
 module.exports.config = config;
 module.exports.app = app;
